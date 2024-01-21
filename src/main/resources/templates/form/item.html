@@ -56,6 +56,14 @@
         </div>
     </div>
 
+    <div>
+        <div>상품 종류</div> <!--반복문을 html에서 사용하는데 모델을 사용하는 것이 아닌, 타임리프에서 지원하는 기능문법 사용-->
+        <div th:each="type : ${T(hello.itemservice.domain.item.ItemType).values()}" class="form-check form-check-inline">
+            <input type="radio" th:field="${item.itemType}" th:value="${type.name()}" class="form-check-input" disabled>
+            <label th:for="${#ids.prev('itemType')}" th:text="${type.description}" class="form-check-label">BOOK
+            </label>
+        </div>
+    </div>
 
 
     <div class="row">
