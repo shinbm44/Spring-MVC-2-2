@@ -1,5 +1,6 @@
 package hello.itemservice.web.form;
 
+import hello.itemservice.domain.item.DeliveryCode;
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
 import hello.itemservice.domain.item.ItemType;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,11 +39,24 @@ public class FormItemController {
         return ItemType.values();
     }
 
+    @ModelAttribute("deliveryCodes")
+    public List<DeliveryCode> deliveryCodes() {
+        List<DeliveryCode> deliveryCodes = new ArrayList<>();
+        deliveryCodes.add(new DeliveryCode("FAST", "빠른 배송"));
+        deliveryCodes.add(new DeliveryCode("NOMAL", "일반 배송"));
+        deliveryCodes.add(new DeliveryCode("SLOW", "느린 배송"));
+
+        return deliveryCodes;
+    }
+
 
     /**
      *
      * 위와 같은 코드를 작성하면, 컨트롤러의 모든 model에
      * 전부 "regions"라는 이름으로 모두 넘겨받는다.
+     * 단, 학습을 위해서 현재 @ModelAttribute를 사용하지만
+     * 이렇게 사용할 경우, 컨트롤러의 메소드가 호출될 때마다 계속 생성된다.
+     * 따라서 이보다는 따로 만들어 놓고 불러다 쓰는 것이 바람직하다.
      *
      */
 
